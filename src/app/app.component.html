@@ -6,7 +6,21 @@
 </mat-toolbar>
 
 <div fxLayout="row">
-  <div fxLayout="column"></div>
-  <div fxLayout="column"></div>
-  <div fxLayout="column"></div>
+  <div class="lists-container" fxLayout="column" [cdkDropListData]="fruits" [cdkDropListConnectedTo]="[vegetablesList, foodstuffsList]" #fruitsList="cdkDropList"
+    class="col" cdkDropList (cdkDropListDropped)="drop($event)">
+    <h2>Fruits</h2>
+    <div *ngFor="let f of fruits" class="box" cdkDrag>{{ f }}</div>
+  </div>
+
+  <div class="lists-container" fxLayout="column" class="col" [cdkDropListConnectedTo]="[fruitsList, foodstuffsList]" [cdkDropListData]="vegetables"
+    cdkDropList #vegetablesList="cdkDropList" (cdkDropListDropped)="drop($event)">
+    <h2>Vegetables</h2>
+    <div class="box" cdkDrag *ngFor="let v of vegetables">{{ v }}</div>
+  </div>
+
+  <div class="lists-container" fxLayout="column" class="col" [cdkDropListConnectedTo]="[vegetablesList, fruitsList]" [cdkDropListData]="foodstuffs"
+    cdkDropList #foodstuffsList="cdkDropList" (cdkDropListDropped)="drop($event)">
+    <h2>Foodstuffs</h2>
+    <div class="box" cdkDrag *ngFor="let fs of foodstuffs">{{ fs }}</div>
+  </div>
 </div>
